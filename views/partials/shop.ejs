@@ -1,0 +1,32 @@
+<div class="untree_co-section product-section before-footer-section">
+  <div class="container">
+    <div class="row">
+      <!-- Start Column 1 -->
+      <% Inventories.forEach(product =>{ %>
+      <div class="col-12 col-md-4 col-lg-3 mb-5">
+        <a class="product-item">
+          <img src="<%= product.image %>" class="img-fluid product-thumbnail" />
+
+          <h3 class="product-title"><%=product.productName%></h3>
+          <strong class="product-price">$<%=product.price%></strong>
+
+          <form id="addToCartForm" method="POST" action="/cart/add">
+            <input type="hidden" name="productId" value="<%= product._id %>" />
+            <input
+              type="hidden"
+              name="productName"
+              value="<%= product.productName %>"
+            />
+            <button class="icon-cross">
+              <img src="images/cross.svg" class="img-fluid" />
+            </button>
+          </form>
+        </a>
+      </div>
+
+      <% }) %>
+
+      <!-- End Column 1 -->
+    </div>
+  </div>
+</div>

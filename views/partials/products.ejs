@@ -1,0 +1,46 @@
+<!-- Start Product Section -->
+<div class="product-section">
+  <div class="container">
+    <div class="row">
+      <!-- Start Column 1 -->
+      <div class="col-md-12 col-lg-3 mb-5 mb-lg-0">
+        <h2 class="mb-4 section-title">Crafted with excellent material.</h2>
+        <p class="mb-4">
+          Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit.
+          Aliquam vulputate velit imperdiet dolor tempor tristique.
+        </p>
+        <p><a href="/shop" class="btn">Explore</a></p>
+      </div>
+      <!-- End Column 1 -->
+      <% let count = 0; %> <% Inventories.forEach(product => { %> <% if (count
+      === 3) { %> <% return; %> <% } else { %>
+      <div class="col-12 col-md-4 col-lg-3 mb-5">
+        <a class="product-item">
+          <img src="<%= product.image %>" class="img-fluid product-thumbnail" />
+
+          <h3 class="product-title"><%=product.productName%></h3>
+          <strong class="product-price">$<%=product.price%></strong>
+
+          <form
+            id="addToCartForm_<%= product._id %>"
+            method="POST"
+            action="/cart/add"
+          >
+            <input type="hidden" name="productId" value="<%= product._id %>" />
+            <input
+              type="hidden"
+              name="productName"
+              value="<%= product.productName %>"
+            />
+            <button class="icon-cross">
+              <img src="images/cross.svg" class="img-fluid" />
+            </button>
+          </form>
+        </a>
+      </div>
+
+      <% count++; %> <% } %> <% }) %>
+    </div>
+  </div>
+</div>
+<!-- End Product Section -->

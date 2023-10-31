@@ -1,0 +1,23 @@
+<%- include('partials/header'); -%> <% if (success_msg != '') { %>
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <%= success_msg %>
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
+</div>
+<% } %> <% if (typeof errors !== 'undefined' && errors.length > 0) { %> <%
+errors.forEach(msg =>{ %>
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <%= msg %>
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
+</div>
+<% }) %> <% } %> <%- include('partials/checkOut'); -%> <%-
+include('partials/footer'); -%>
