@@ -49,25 +49,26 @@ app.use((req, res, next) => {
 })
 
 
-app.get("/", (req, res) => {
-  Inventory.find({})
-    .then(foundItems => {
-      if (foundItems.length === 0) {
-        return res.render("shop", {
-          activeTab: 'shop'
-        });
-      } else {
-        return foundItems;
-      }
-    })
-    .then(products => {
-      res.render("homepage", {
-        Inventories: products,
+app.get("/", async (req, res) => {
+  try {
+    const foundItems = await Inventory.find({});
+
+    if (foundItems.length === 0 || foundItems === undefined) {
+      return res.render("shop", {
+        activeTab: 'shop',
+        Inventories: [],
+      });
+    } else {
+      return res.render("homepage", {
+        Inventories: foundItems,
         activeTab: 'shop'
-      })
-    })
-    .catch(err => console.log(err));
-})
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Internal Server Error");
+  }
+});
 
 
 app.use("/shop", require("./route/shop"))
@@ -107,5 +108,5 @@ app.get("/thankyou", (req, res) => {
 
 // Start the server
 app.listen(3000, () => {
-  console.log("Server started on http://localhost:3000");
+  console.log("Server started on port 3000");
 });

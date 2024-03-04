@@ -2,14 +2,13 @@
   <div class="container">
     <div class="row">
       <!-- Start Column 1 -->
-      <% Inventories.forEach(product =>{ %>
+      <% if (Inventories && Inventories.length > 0) { %> <%
+      Inventories.forEach(product => { %>
       <div class="col-12 col-md-4 col-lg-3 mb-5">
         <a class="product-item">
           <img src="<%= product.image %>" class="img-fluid product-thumbnail" />
-
-          <h3 class="product-title"><%=product.productName%></h3>
-          <strong class="product-price">$<%=product.price%></strong>
-
+          <h3 class="product-title"><%= product.productName %></h3>
+          <strong class="product-price">$<%= product.price %></strong>
           <form id="addToCartForm" method="POST" action="/cart/add">
             <input type="hidden" name="productId" value="<%= product._id %>" />
             <input
@@ -23,8 +22,9 @@
           </form>
         </a>
       </div>
-
-      <% }) %>
+      <% }) %> <% } else { %>
+      <p>No inventories available</p>
+      <% } %>
 
       <!-- End Column 1 -->
     </div>

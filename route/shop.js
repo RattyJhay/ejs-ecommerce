@@ -3,25 +3,29 @@ const router = Router()
 const Inventory = require("../models/inventory");
 
 
-router.get("/", (req, res) => {
-  Inventory.find({})
-    .then(foundItems => {
-      if (foundItems.length === 0) {
-        return res.render("shop", {
-          activeTab: 'shop'
-        });
-      } else {
-        return foundItems;
-      }
-    })
-    .then(products => {
-      res.render("shop", {
-        Inventories: products,
+router.get("/", async (req, res) => {
+  try {
+    const foundItems = await Inventory.find({});
+
+    if (foundItems.length === 0 || foundItems === undefined) {
+      console.log("top items ===>", foundItems)
+      return res.render("shop", {
+        activeTab: 'shop',
+        Inventories: [],
+      });
+    } else {
+      return res.render("shop", {
+        Inventories: foundItems,
         activeTab: 'shop'
-      })
-    })
-    .catch(err => console.log(err));
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Internal Server Error");
+  }
 })
+
+
 
 
 module.exports = router;
